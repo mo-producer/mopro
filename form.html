@@ -305,7 +305,7 @@
                 <h2>طلب مشروع واحد</h2>
             </div>
             <div class="section-content">
-                <form action="send_email.php" method="post" enctype="multipart/form-data">
+                <form action="https://formspree.io/f/myzwveav" method="POST" enctype="multipart/form-data">
                     <div class="form-section">
                         <h3 class="form-section-title">معلومات أساسية</h3>
                         <div>
@@ -348,9 +348,14 @@
                                 <option value="reel">ريل</option>
                                 <option value="promo">برومو</option>
                                 <option value="logo_animation">تحريك شعار</option>
+								
                             </select>
                         </div>
 
+                        <div id="drive_logo_field" style="display: none;">
+                            <label for="drive_link">أدخل رابــط مباشر للهوية البصرية :</label><br>
+                            <input type="text" id="drive_link" name="drive_link">
+                        </div>
                         <div id="drive_link_field" style="display: none;">
                             <label for="drive_link">أدخل رابط الدرايف الذي يحتوي على ملفاتك:</label><br>
                             <input type="text" id="drive_link" name="drive_link">
@@ -368,14 +373,9 @@
                             </div>
                         </div>
 
-                        <div id="logo_upload_field" style="display: none;">
-                            <label for="logo_file">ارفع الشعار الخاص بك:</label><br>
-                            <div class="file-upload-wrapper">
-                                <span class="file-upload-text">اختر ملف الشعار</span>
-                                <span class="file-upload-button">تصفح</span>
-                                <input type="file" id="logo_file" name="logo_file" accept="image/*">
-                            </div>
-                            <p class="form-help-text">يرجى رفع ملف صورة (JPG, PNG, SVG).</p>
+                        <div id="drive_link_field" style="display: none;">
+                            <label for="drive_link">ضع رابط مباشر للشعار أول الهوية البصرية :</label><br>
+                            <input type="text" id="drive_link" name="drive_link">
                         </div>
 
                         <div id="brand_link_field" style="display: none;">
@@ -427,7 +427,7 @@
         function toggleWorkTypeFields(workType) {
             const driveLinkField = document.getElementById("drive_link_field");
             const videoExampleFields = document.getElementById("video_example_fields");
-            const logoUploadField = document.getElementById("logo_upload_field");
+            const logoUploadField = document.getElementById("drive_logo_field");
             const brandLinkField = document.getElementById("brand_link_field");
             const budgetSuggestion = document.getElementById("budget_suggestion");
             const budgetInput = document.getElementById("budget");
@@ -469,12 +469,13 @@
             budgetSuggestion.textContent = ''; // Clear previous suggestion
 
             if (workType === 'reel') {
-                budgetSuggestion.textContent = 'يفضل أن لا يقل عن 15$';
+                budgetSuggestion.textContent = 'يفضل أن لا يقل عن 25$';
             } else if (workType === 'promo') {
-                budgetSuggestion.textContent = 'يفضل أن لا يقل عن 30$';
+                budgetSuggestion.textContent = 'يفضل أن لا يقل عن 40$';
             } else if (workType === 'logo_animation') {
                 budgetSuggestion.textContent = 'يفضل أن لا يقل عن 150$';
             }
+		
         });
     </script>
     <script>
