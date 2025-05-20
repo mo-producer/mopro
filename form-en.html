@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Video Request Form</title>
+    <link rel="icon" href="https://f.top4top.io/p_3427tnspy1.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #ff3366;
+            --primary-dark: #d62b58;
+            --primary-light: #ff6b8e;
+            --secondary-color: #2c3e50;
+            --accent-color: #3498db;
+            --dark-bg: #1a1a2e;
+            --dark-card: #16213e;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --text-color: #333333;
+            --light-text: #777777;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --gradient-primary: linear-gradient(135deg, var(--primary-color), #ff6b8e);
+            --gradient-dark: linear-gradient(135deg, var(--dark-bg), var(--dark-card));
+            --gradient-light: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image:
+                linear-gradient(rgba(248, 249, 250, 0.97), rgba(248, 249, 250, 0.97)),
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ff3366' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            background-attachment: fixed;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0;
+            background-color: transparent;
+        }
+
+        section {
+            margin-bottom: 60px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            background-color: var(--white);
+        }
+
+        .section-header {
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-header h2 {
+            font-size: 2.2em;
+            font-weight: 700;
+            margin: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+            z-index: 1;
+        }
+
+        .section-content {
+            padding: 30px;
+        }
+
+        form {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 60px;
+        }
+
+        form div {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+            font-size: 1.1em;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea,
+        input[type="file"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        select:focus,
+        textarea:focus,
+        input[type="file"]:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 3px 7px rgba(255, 51, 102, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            height: 120px;
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23777' d='M2 0L0 2h4L2 0z'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            /* Changed from right to left for LTR */
+            background-position: right 10px center; 
+            background-size: 8px 10px;
+            padding-right: 30px; /* Changed from right to left for LTR */
+        }
+
+        select:focus {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23FF3366' d='M2 0L0 2h4L2 0z'%3E%3C/path%3E%3C/svg%3E");
+        }
+
+        .file-upload-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background-color: var(--white);
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            padding: 8px 10px;
+        }
+
+        .file-upload-text {
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-right: 10px; /* Kept as is for LTR, affects spacing to button */
+            font-size: 1em;
+            color: var(--text-color);
+        }
+
+        .file-upload-button {
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border: none;
+        }
+
+        .file-upload-button:hover {
+            background: linear-gradient(135deg, var(--primary-dark), #ff5e86);
+        }
+
+        input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+        }
+
+        .form-help-text {
+            font-size: 0.9em;
+            color: var(--light-text);
+            margin-top: 5px;
+        }
+
+        .form-section {
+            background-color: #f8f8f8;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #eee;
+        }
+
+        .form-section-title {
+            color: var(--primary-color);
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 5px;
+        }
+
+        button[type="submit"] {
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-top: 10px;
+            box-shadow: 0 5px 15px rgba(255, 51, 102, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        button[type="submit"]:hover {
+            background: linear-gradient(135deg, var(--primary-dark), #ff5e86);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 51, 102, 0.4);
+        }
+
+        button[type="submit"]::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s ease;
+            z-index: -1;
+        }
+
+        button[type="submit"]:hover::before {
+            left: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .hero-buttons {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .pricing-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 95%;
+                margin: 20px auto;
+            }
+
+            .section-header h2 {
+                font-size: 1.8em;
+            }
+
+            .hero h1 {
+                font-size: 2.5em;
+            }
+
+            .hero p {
+                font-size: 1.1em;
+            }
+
+            form {
+                padding: 20px;
+            }
+
+            .form-help-text {
+                font-size: 0.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <section>
+            <div class="section-header">
+                <h2>Single Project Request</h2>
+            </div>
+            <div class="section-content">
+                <form action="https://formspree.io/f/myzwveav" method="POST" enctype="multipart/form-data">
+                    <div class="form-section">
+                        <h3 class="form-section-title">Basic Information</h3>
+                        <div>
+                            <label for="name">Your Name:</label><br>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div>
+                            <label for="email">Email Address:</label><br>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div>
+                            <label for="company">Your Company Name:</label><br>
+                            <input type="text" id="company" name="company" required>
+                        </div>
+                        <div>
+                            <label for="phone">Your Phone Number:</label><br>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="form-section-title">Order Details</h3>
+                        <div>
+                            <label for="delivery_days">Number of Delivery Days:</label><br>
+                            <select id="delivery_days" name="delivery_days" onchange="updateDeliveryDaysText()">
+                                <option value="" disabled selected>Click to select number of days</option>
+                                <option value="1">1 Day</option>
+                                <option value="2">2 Days</option>
+                                <option value="3">3 Days</option>
+                                <option value="4">4 Days</option>
+                                <option value="5">5 Days</option>
+                                <option value="6">6 Days</option>
+                            </select>
+                            <p id="delivery_days_text" class="form-help-text"></p>
+                        </div>
+                        <div>
+                            <label for="work_type">Type of Work:</label><br>
+                            <select id="work_type" name="work_type" onchange="toggleWorkTypeFields(this.value)">
+                                <option value="" disabled selected>Select work type</option>
+                                <option value="reel">Reel</option>
+                                <option value="promo">Promo</option>
+                                <option value="logo_animation">Logo Animation</option>
+                            </select>
+                        </div>
+
+                        <div id="drive_logo_field" style="display: none;">
+                            <label for="drive_link">Enter direct link for brand identity:</label><br>
+                            <input type="text" id="drive_link" name="drive_link">
+                        </div>
+                        <div id="drive_link_field" style="display: none;">
+                            <label for="drive_link">Enter the Drive link containing your files:</label><br>
+                            <input type="text" id="drive_link" name="drive_link">
+                        </div>
+
+                        <div id="video_example_fields" style="display: none;">
+                            <label>Provide an example video you'd like:</label><br>
+                            <div>
+                                <label for="video_example_1">Video Link 1:</label><br>
+                                <input type="text" id="video_example_1" name="video_example_1">
+                            </div>
+                            <div>
+                                <label for="video_example_2">Video Link 2:</label><br>
+                                <input type="text" id="video_example_2" name="video_example_2">
+                            </div>
+                        </div>
+
+                        <div id="brand_link_field" style="display: none;">
+                            <label for="brand_link">Brand Company Link:</label><br>
+                            <input type="text" id="brand_link" name="brand_link">
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="form-section-title">Additional Information</h3>
+                        <div>
+                            <label for="budget">Budget:</label><br>
+                            <input type="text" id="budget" name="budget" required>
+                            <p id="budget_suggestion" class="form-help-text"></p>
+                        </div>
+                        <div>
+                            <label for="project_description">Project Description:</label><br>
+                            <textarea id="project_description" name="project_description" rows="4" cols="30"
+                                        placeholder="Tell me more about your project, your goals, and your target audience."></textarea>
+                        </div>
+                        <div>
+                            <label for="target_audience">Target Audience:</label><br>
+                            <input type="text" id="target_audience" name="target_audience"
+                                       placeholder="Who is your target audience? (Age, gender, interests, etc.)">
+                        </div>
+                        <div>
+                            <label for="call_to_action">Call to Action: <span class="optional-text">(Optional)</span></label><br>
+                            <input type="text" id="call_to_action" name="call_to_action"
+                                       placeholder="What do you want the viewer to do after watching the video? (e.g., Subscribe to the channel, Contact us)">
+                            <p class="form-help-text">
+                                <span class="hint-text">This field is optional.</span>
+                                <span class="expand-text"> For more information on "Call to Action", <a href="#" onclick="showCallToActionExplanation()">click here</a>.</span>
+                            </p>
+                        </div>
+                        <div>
+                            <label for="additional_info">Additional Information:</label><br>
+                            <textarea id="additional_info" name="additional_info" rows="4" cols="30"
+                                        placeholder="Are there any other details you would like to share?"></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit">Submit Request</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function toggleWorkTypeFields(workType) {
+            const driveLinkField = document.getElementById("drive_link_field");
+            const videoExampleFields = document.getElementById("video_example_fields");
+            const logoUploadField = document.getElementById("drive_logo_field"); // Corrected ID usage based on HTML structure
+            const brandLinkField = document.getElementById("brand_link_field");
+            const budgetSuggestion = document.getElementById("budget_suggestion");
+            const budgetInput = document.getElementById("budget");
+
+            // Reset fields
+            driveLinkField.style.display = "none";
+            videoExampleFields.style.display = "none";
+            logoUploadField.style.display = "none";
+            brandLinkField.style.display = "none";
+            budgetSuggestion.textContent = "";
+            budgetInput.value = "";
+
+            if (workType === "reel" || workType === "promo") {
+                driveLinkField.style.display = "block";
+                videoExampleFields.style.display = "block";
+                if (workType === "reel") {
+                    budgetSuggestion.textContent = "Suggested minimum budget: $15";
+                } else {
+                    budgetSuggestion.textContent = "Suggested minimum budget: $30";
+                }
+            } else if (workType === "logo_animation") {
+                logoUploadField.style.display = "block";
+                brandLinkField.style.display = "block";
+                budgetSuggestion.textContent = "Suggested minimum budget: $150";
+            }
+        }
+
+        // Note: The original HTML had a 'logo_file' ID for an input type="file", 
+        // but the provided HTML snippet does not contain an input with this ID.
+        // Assuming this was removed or is not critical, or an old remnant.
+        // If you re-introduce a file input for logo, ensure its ID is 'logo_file'.
+        // For now, I'm commenting out the related JS.
+        /*
+        document.getElementById('logo_file').addEventListener('change', function() {
+            let fileName = this.value.split('\\').pop();
+            document.querySelector('.file-upload-text').textContent = fileName ? fileName : 'Select logo file';
+        });
+        */
+
+        document.getElementById('work_type').addEventListener('change', function() {
+            var workType = this.value;
+            var budgetInput = document.getElementById('budget');
+            var budgetSuggestion = document.getElementById('budget_suggestion');
+
+            budgetInput.value = ''; // Clear previous input
+            budgetSuggestion.textContent = ''; // Clear previous suggestion
+
+            if (workType === 'reel') {
+                budgetSuggestion.textContent = 'Preferably not less than $25';
+            } else if (workType === 'promo') {
+                budgetSuggestion.textContent = 'Preferably not less than $40';
+            } else if (workType === 'logo_animation') {
+                budgetSuggestion.textContent = 'Preferably not less than $150';
+            }
+        });
+
+        function updateDeliveryDaysText() {
+            const deliveryDaysSelect = document.getElementById("delivery_days");
+            const deliveryDaysText = document.getElementById("delivery_days_text");
+            const selectedValue = deliveryDaysSelect.value;
+
+            let message = "";
+            switch (selectedValue) {
+                case "1":
+                    message = "The project will be delivered within 24 hours or less.";
+                    break;
+                case "2":
+                    message = "The project will be delivered within 48 hours or less.";
+                    break;
+                case "3":
+                    message = "The project will be delivered within 72 hours or less.";
+                    break;
+                case "4":
+                    message = "The project will be delivered within 96 hours or less.";
+                    break;
+                case "5":
+                    message = "The project will be delivered within 120 hours or less.";
+                    break;
+                case "6":
+                    message = "The project will be delivered within 144 hours or less.";
+                    break;
+                default:
+                    message = "";
+            }
+            deliveryDaysText.textContent = message;
+            deliveryDaysText.style.color = "#777";
+            deliveryDaysText.style.marginTop = "5px";
+            deliveryDaysText.style.fontSize = "0.9em";
+        }
+
+        function showCallToActionExplanation() {
+            alert(`A Call to Action (CTA) is a fundamental element in any marketing or advertising video. Simply put, it's the message or request you direct to the viewer at the end of the video to perform a specific action.
+
+Examples of Calls to Action:
+* Subscribe to the channel: If the video is on YouTube.
+* Sign up on our website: If you are promoting a service or product.
+* Contact us: If you want the viewer to call you or send you a message.
+* Visit our website: If you want the viewer to learn more about you.
+* Follow us on social media: To increase your followers.
+* Order the product now: If you are selling a specific product.
+
+Why is a Call to Action important?
+* Guiding the viewer: It clarifies to the viewer what step they should take after watching the video.
+* Increasing engagement: It encourages the viewer to interact with your content (subscribe, comment, like).
+* Achieving marketing goals: It helps you achieve your marketing goals (increase sales, number of visitors, number of subscribers).
+
+In the video design request form, we ask what Call to Action you want in your video so we can design the video to best achieve your goal.`);
+        }
+    </script>
+</body>
+</html>
