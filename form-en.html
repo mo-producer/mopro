@@ -298,9 +298,50 @@
                 font-size: 0.8em;
             }
         }
+		/* Style for the "Back to Home" button */
+.back-to-home-btn {
+    position: fixed;
+    top: 90px; /* تم تعديل القيمة لتجنب التداخل مع زر اللغة الموجود في top: 30px */
+    right: 30px; /* ليكون على اليمين في الصفحات العربية، أو على اليسار في الصفحات الإنجليزية */
+    width: auto; /* لجعل العرض يتناسب مع النص */
+    min-width: 120px; /* حد أدنى للعرض ليكون الزر واضحًا */
+    height: 50px;
+    background: var(--gradient-primary); /* يستخدم نفس تدرج الألوان */
+    color: var(--white);
+    border-radius: 50px; /* لجعله بشكل زر Pills */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px; /* لضبط المسافة الداخلية للنص */
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(255, 51, 102, 0.3);
+    text-decoration: none;
+    z-index: 999; /* أقل بقليل من زر اللغة إذا كان موجودًا، لمنع التداخل في الترتيب */
+    transition: all 0.3s ease;
+}
+
+.back-to-home-btn:hover {
+    background: linear-gradient(135deg, var(--primary-dark), #ff5e86);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 51, 102, 0.4);
+}
+
+/* Responsive adjustments for back-to-home-btn */
+@media (max-width: 992px) {
+    .back-to-home-btn {
+        top: 70px; /* تعديل للموبايل */
+        right: 20px; /* يبقى على اليمين في الشاشات الصغيرة */
+        font-size: 1em;
+        height: 40px;
+        min-width: 100px;
+    }
+	}
     </style>
 </head>
 <body>
+	<a href="https://mo-producer.github.io//mopro/en.html" class="back-to-home-btn">Back to Home</a>
     <div class="container">
         <section>
             <div class="section-header">
