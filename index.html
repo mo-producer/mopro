@@ -734,6 +734,43 @@
         .scroll-top:hover {
             transform: translateY(-5px);
         }
+	    	/* Language Switch Button for Arabic Page (to English) */
+.lang-switch-en {
+    position: fixed;
+    top: 30px;
+    left: 30px; /* هذا هو التعديل الأساسي: يضعه على اليسار */
+    width: 50px;
+    height: 50px;
+    background: var(--gradient-primary); /* يستخدم نفس تدرج الألوان */
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(255, 51, 102, 0.3);
+    text-decoration: none;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.lang-switch-en:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(255, 51, 102, 0.4);
+}
+
+/* Responsive adjustments for lang-switch-en */
+@media (max-width: 992px) {
+    .lang-switch-en {
+        top: 20px;
+        right: 20px; /* يبقى على اليمين في الشاشات الصغيرة أيضاً */
+        font-size: 1em;
+        width: 40px;
+        height: 40px;
+    }
+}
     </style>
 </head>
 
